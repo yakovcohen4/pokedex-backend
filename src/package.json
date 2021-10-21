@@ -1,5 +1,5 @@
 {
-  "name": "pokedex-backend",
+  "name": "src",
   "version": "1.0.0",
   "description": "backend",
   "main": "index.js",

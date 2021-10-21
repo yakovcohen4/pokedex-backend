@@ -1,8 +1,13 @@
 const express = require('express');
 const app = express();
+
 const port = 8080;
 const Pokedex = require('pokedex-promise-v2');
 const P = new Pokedex();
+
+const pokemonRouter = require('./routers/pokemonRouter');
+// http//localhost:8080/pokemon
+app.use('/pokemon', pokemonRouter);
 
 app.get("/" , (req, res) => {
   res.send("hello world")
