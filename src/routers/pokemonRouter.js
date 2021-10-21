@@ -31,15 +31,12 @@ router.put("/catch/:id", (req, res)=> {
     const id = req.params.id;
     const userName = req.headers.username;
     const pokemon = JSON.stringify(req.body.pokemon);
-    console.log("pokemon "+pokemon)
-
     const uesrHolderPath = path.resolve(`.\\users`, userName);
+
     if (fs.existsSync(uesrHolderPath)){                             // if uesr name exists uesrs
         const collection = fs.readdirSync(uesrHolderPath)
-        console.log(collection)
         if (collection.includes(`${id}.json`)){                     // if in user name exists the pokemon
             res.status(403).json({ message: 'An error occured'})    // change status to 403
-            throw new Error ('already caught');
         }
     }else{
         fs.mkdirSync(uesrHolderPath)                                // create a folder with the username 
@@ -49,6 +46,23 @@ router.put("/catch/:id", (req, res)=> {
 })
 
 
+// http://localhost:8080/pokemon/release/:id
+router.delete('/release/:id',(req, res) => {
+    const id = req.params.id;
+    const userName = req.headers.username;
+    const uesrHolderPath = path.resolve(`.\\users`, userName);
+
+    if (fs.existsSync(uesrHolderPath)){                                 // if uesr name exists uesrs
+        const collection = fs.readdirSync(uesrHolderPath);              // array with files pokemon
+        if (!collection.includes(`${id}.json`)){                        // if not in collection
+            res.status(403).json(
+                {message: 'the pokemon is not on your collection'})     // change status to 403
+        }
+        fs.unlinkSync(`${uesrHolderPath}/${id}.json`);                  // delete file
+        res.send(true);
+    }
+    res.status(403).json({ message: 'no such user'});                   // change status to 403
+})
 
 // http://localhost:8080/pokemon/
 router.get('/',(req, res) => {
