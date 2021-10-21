@@ -5,6 +5,8 @@ const port = 8080;
 const Pokedex = require('pokedex-promise-v2');
 const P = new Pokedex();
 
+app.use(express.json()) // parses requests as json
+
 const pokemonRouter = require('./routers/pokemonRouter');
 // http//localhost:8080/pokemon
 app.use('/pokemon', pokemonRouter);
