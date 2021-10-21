@@ -4,6 +4,19 @@ const port = 8080;
 const Pokedex = require('pokedex-promise-v2');
 const P = new Pokedex();
 
+app.get("/" , (req, res) => {
+  res.send("hello world")
+  P.getPokemonByName('1') 
+  .then(function(response) {
+    console.log(response.name);
+    console.log(response.height);
+    console.log(response.weight);
+    console.log(response.types[0].type.name);
+  })
+  .catch(function(error) {
+    console.log('There was an ERROR: ', error);
+  });
+})
 
 // start the server
 app.listen(port, function() {
