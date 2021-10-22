@@ -25,26 +25,9 @@ app.use('/info', userRouter);
 // middleware errorHandler
 app.use(errorHandler);
 
-// app.get("/" , (req, res) => {
-//   res.send("hello world")
-//   P.getPokemonByName('1') 
-//   .then(function(response) {
-//     console.log(response.name);
-//     console.log(response.height);
-//     console.log(response.weight);
-//     console.log(response.types[0].type.name);
-//   })
-//   .catch(function(error) {
-//     console.log('There was an ERROR: ', error);
-//   });
-// })
 
 // start the server
 app.listen(port, function() {
   console.log('app started');
 });
 
-// route our app
-app.get('/', function(req, res) {
-  res.send('hello world!');
-});
