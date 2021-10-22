@@ -8,7 +8,7 @@ const path = require('path')
 
 
 // http//localhost:8080/pokemon/get/:id
-router.get('/get/:id',(req, res) => {
+router.get('/get/:id',(req, res, next) => {
     const id = req.params.id;
     P.getPokemonByName(id)
     .then(function(response) {
@@ -16,8 +16,20 @@ router.get('/get/:id',(req, res) => {
             return res.send(pokedexObj2);
         })
     .catch(function(error) {
-            console.log('There was an ERROR: ', error);
-            // throw {"status": 403, "messege": "no such Pokemon, try again"};
+        next({"status": 403, "messege": "no such Pokemon, try again"})
+        });
+})
+
+// http//localhost:8080/pokemon/get/quary
+router.get('/query',(req, res, next) => {
+    const pokemonName = req.body.query;
+    P.getPokemonByName(pokemonName)
+    .then(function(response) {
+            const pokedexObj2 = createPokeObj(response)
+            return res.send(pokedexObj2);
+        })
+    .catch(function(error) {
+        next ({"status": 403, "messege": "no such Pokemon, try again"})
         });
 })
 
@@ -62,7 +74,7 @@ router.get('/',(req, res) => {
     const userFolderPath = path.resolve(`.\\users`, userName);
     const pokemonCollection = [];
     const collection = fs.readdirSync(userFolderPath);                   // array with files pokemon
-    
+
     collection.forEach(pokemonFile => {
         const filePath = path.resolve(userFolderPath, pokemonFile);      // path of file 
         const pokemonObj = fs.readFileSync(filePath);                    // pokemon file object
