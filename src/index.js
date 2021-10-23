@@ -1,10 +1,13 @@
 const express = require('express');
 const app = express();
-
+const cors = require('cors')
 const port = 8080;
 const Pokedex = require('pokedex-promise-v2');
 const P = new Pokedex();
 
+app.use(cors({
+  origin: '*'
+}))
 app.use(express.json())     // parses requests as json
 
 const pokemonRouter = require('./routers/pokemonRouter');

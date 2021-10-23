@@ -80,6 +80,7 @@ router.get('/',(req, res) => {
         const pokemonObj = fs.readFileSync(filePath);                    // pokemon file object
         pokemonCollection.push(pokemonObj.toString())
     });
+    console.log(pokemonCollection)
     return res.send(pokemonCollection);                                  // send array of pokemons object 
 })
 
