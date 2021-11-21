@@ -14,10 +14,11 @@ function userHandler (req, res, next) {
         throw { "status": 401,                                // throw error 401
                 "messege": "miss user name header"};                         
     }
-
-    const userFolderPath = path.resolve(`.\\users`, userName);
-    if (!fs.existsSync(userFolderPath) ){                     // if miss folder to username
-        fs.mkdirSync(userFolderPath)                          // create a folder to username 
+    if (userName !== undefined){
+        const userFolderPath = path.resolve(`.\\users`, userName);
+        if (!fs.existsSync(userFolderPath) ){                     // if miss folder to username
+            fs.mkdirSync(userFolderPath)                          // create a folder to username 
+        }
     }
     next();
 };

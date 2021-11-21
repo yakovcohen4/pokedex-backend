@@ -6,7 +6,7 @@
 // 401 for unauthenticated user request (pokemon requests missing the username header)
 
 function errorHandler (err, req, res, next) {
-
+    console.log('yakov')
     console.log(err.status + " "+ err.messege);
     if(!err.status) {
         res.status(500);
